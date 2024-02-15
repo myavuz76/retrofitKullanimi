@@ -1,0 +1,21 @@
+package com.example.besinuygulamasi.Model
+
+import com.google.gson.annotations.SerializedName
+
+data class Besin (
+    @SerializedName("isim")
+    val besinIsmi:String?,
+    @SerializedName("kalori")
+    val besinKalori:String?,
+    @SerializedName("protein")
+    val besinProtein:String?,
+    @SerializedName("karbonhidrat")
+    val besinKarbonhidrat : String?,
+    @SerializedName("yag")
+    val besinYag: String?,
+    @SerializedName("gorsel")
+    val besinGorsel: String?
+
+    ) {
+
+}
