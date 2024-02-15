@@ -1,0 +1,40 @@
+uygulama kök dizini icerisine olusturdugumuz service dosyasini icerisine simdi de
+Retrofiti yazacagimiz ApiService mizi olusturuyoruz
+
+https://github.com/atilsamancioglu/BTK20-JSONVeriSeti/blob/master/besinler.json
+
+simdi Base_url mizi olusturuyoruz
+
+package com.example.besinuygulamasi.service
+
+import com.example.besinuygulamasi.Model.Besin
+import io.reactivex.Single
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
+
+class BesinApiService {
+
+    //Base_Urlolusturuyoruz
+    //https://github.com/atilsamancioglu/BTK20-JSONVeriSeti/blob/master/besinler.json
+
+    private val Base_Url ="https://github.com"
+    private val api = Retrofit.Builder()
+        .baseUrl(Base_Url)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BesinApi::class.java)
+    //bu yazdigimiz degiskenlere ulasabilmek icin bir fonksiyon yaziyoruz
+
+    fun getData(): Single<List<Besin>>{
+        return api.getBesin()//bu getBesin BesinApi de olusturdugunuz degisken
+
+
+        //artik bu sinftan bir nesne olusturur isek BesinApi ve BesinApiServie icerisinde ki
+        // bütün fonksiyonlara ulasabiliyouz
+
+    }
+}
+
