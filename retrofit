@@ -1,0 +1,72 @@
+Retrofit Kullanmak icin gradle eklentileri
+
+def retrofitVersion = '2.8.1'    
+implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
+
+https://square.github.io/retrofit/ dokumantasyon sayfasi
+
+uygulamamizde ilk önce Model imize gelip icerisinde ki degiskenlerin json verisinde ki 
+degiskenler ile ayni olmak zorunda dir bunu saglamak icin class in önüne data eklentisini ekliyoruz
+sonra her degiskenin üzerine @SerializedName ile internetten algimiz json icerisinde ki 
+ismi ile esitliyoruz
+
+data class Besin (
+    @SerializedName("isim")
+    val besinIsmi:String?,
+    @SerializedName("kalori")
+    val besinKalori:String?,
+    @SerializedName("protein")
+    val besinProtein:String?,
+    @SerializedName("karbonhidrat")
+    val besinKarbonhidrat : String?,
+    @SerializedName("yag")
+    val besinYag: String?,
+    @SerializedName("gorsel")
+    val besinGorsel: String?
+
+    ) {
+
+}
+
+simdi de bir arayüz(interface) olusturcagiz bunun icin ana dizine service isminde bir package olusturuyouz
+sonra buna sag tiklayip neu/ interface ile BesinApi diyerek ekliyoruz
+
+sonra icerisine @GET fonksiyonu ile Verilerimizi cekecegimiz webservisimizin kök dizin haric
+kalanini yaziyoruz
+https://github.com/ bu kök dizin BASE_URL bunu yazmiyoruz
+
+
+atilsamancioglu/BTK20-JSONVeriSeti/blob/master/besinler.json
+sonra altina getBesin() fonksiyonunu tanimliyoruz ve RxJava kullanarak bir istek yapacagiz
+retrofit in Call ini kullanmiyaoruz isteyen kullanabilir o yari
+
+ fun getBesin() : Single<List<Besin>>
+
+Single ne ise yarar ddokumentasyonu
+Single = Gibt entweder ein einzelnes Element oder ein Fehlerereignis aus. Die reaktive Version eines Methodenaufrufs.
+https://www.vogella.com/tutorials/RxJava/article.html
+
+package com.example.besinuygulamasi.service
+
+import com.example.besinuygulamasi.Model.Besin
+import io.reactivex.Single
+import retrofit2.http.GET
+
+interface BesinApi {
+    //GET almak icin
+    //POST yazmak icin
+
+
+    @GET("atilsamancioglu/BTK20-JSONVeriSeti/blob/master/besinler.json")
+    fun getBesin() : Single<List<Besin>>
+
+
+}
+
+
+
+
+
+
