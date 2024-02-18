@@ -30,3 +30,9 @@ fun placeholderYap( context : Context): CircularProgressDrawable{
         start()
     }
 }
+
+sonra RecycleViewAdapter sinifimiza gidip istenilen url ve contexti onBindViewHolder fonksiyonu icerisinde
+olusturdugumuz extention sinifina 
+gönderiyoruz
+
+ holder.itemView.findViewById<ImageView>(R.id.besinIsmiGorselRow).gorselIndir(besinListesi.get(position).besinGorsel, placeholderYap(holder.itemView.context)
