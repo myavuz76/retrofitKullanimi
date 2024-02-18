@@ -1,0 +1,32 @@
+internetten gorsel almak icin Glide Kütüphanesinden yada Picasso kütüphanesinden yararlaniyoruz
+https://github.com/bumptech/glide
+https://square.github.io/picasso/
+
+ilk önce bir kendimiz bir extention olusturuyoruz
+bunun icin bir kotlin file olusturup icierisine bir fonksiyon olusturuyoruz
+bu fonksiyon ile iki parametre istiyoruz bir url ikincisi context, context icin CircularProgressDrawable yapisindan faydaliniyoruz
+
+ikinci bir fonksiyon daha olusturup kendi progressbar imizi yapiyoruz
+
+package com.example.besinuygulamasi.util
+
+import android.content.Context
+import android.widget.ImageView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.besinuygulamasi.R
+
+fun ImageView.gorselIndir(url: String? , placeHolder : CircularProgressDrawable){
+    val options= RequestOptions().placeholder(placeHolder).error(R.mipmap.ic_launcher)
+
+    Glide.with(context).load(url).into(this)
+}
+
+fun placeholderYap( context : Context): CircularProgressDrawable{
+    return CircularProgressDrawable(context).apply {
+        strokeWidth = 8f
+        centerRadius = 40f
+        start()
+    }
+}
